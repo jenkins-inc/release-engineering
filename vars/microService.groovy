@@ -4,5 +4,7 @@
 */
 
 def call() {
-    sh "${tool 'Maven 3.x'}/bin/mvn install"
+    node {
+        sh "${tool 'Maven 3.x'}/bin/mvn install"
+    }
 }
