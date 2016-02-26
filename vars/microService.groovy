@@ -5,6 +5,7 @@
 
 def call() {
     node {
+        checkout scm
         sh "${tool 'Maven 3.x'}/bin/mvn install"
     }
 }
