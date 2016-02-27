@@ -10,12 +10,12 @@ def call() {
         stage 'Build'
         sh "${tool 'Maven 3.x'}/bin/mvn install"
         
-        stage 'Deploy'
         def repoName = scm.userRemoteConfigs[0].url.split('(/jenkins-demo/|.git$)')[1]   // extract repository name
+        def branch = env.BRANCH_NAME
         
-        switch (env.BRANCH_NAME) {
-        case 'master':
-            sh "heroku deploy:war --war target/*.war --app ${repoName}-dev"
+        if (branch in ['dev','staging','prod']) {
+            stage 'Deploy'
+            sh "heroku deploy:war --war target/*.war --app ${repoName}-${branch}"
         }
     }
 }
