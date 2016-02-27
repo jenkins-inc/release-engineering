@@ -11,7 +11,7 @@ def call() {
         sh "${tool 'Maven 3.x'}/bin/mvn install"
         
         stage 'Deploy'
-        def repoName = env.GIT_URL.split('(/jenkins-demo/|.git$)')[1]   // extract repository name
+        def repoName = scm.userRemoteConfigs[0].url.split('(/jenkins-demo/|.git$)')[1]   // extract repository name
         
         switch (env.BRANCH_NAME) {
         case 'master':
