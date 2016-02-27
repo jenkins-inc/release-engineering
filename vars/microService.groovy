@@ -6,10 +6,16 @@
 def call() {
     node {
         checkout scm
+        
+        stage 'Build'
         sh "${tool 'Maven 3.x'}/bin/mvn install"
+        
+        stage 'Deploy'
+        def repoName = env.GIT_URL.split('(/jenkins-demo/|.git$)')[1]   // extract repository name
+        
         switch (env.BRANCH_NAME) {
         case 'master':
-            sh "heroku deploy:war --war target/*.war --app borat-dev"
+            sh "heroku deploy:war --war target/*.war --app ${repoName}-dev"
         }
     }
 }
