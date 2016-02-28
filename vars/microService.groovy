@@ -36,5 +36,5 @@ def mergeTo(target) {
     sh "git reset --hard origin/${target}" // move to the current tip
     sh "git merge origin/${env.BRANCH_NAME}"
     sh "git commit --allow-empty -m 'promotion by Jenkins'"
-    sh "git push ${target}"
+    sh "git push origin ${target}"
 }
