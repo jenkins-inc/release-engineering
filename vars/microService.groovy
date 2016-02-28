@@ -18,7 +18,7 @@ def call() {
             sh "heroku deploy:war --war target/*.war --app ${repoName}-${branch}"
 
             stage 'Test'
-            sh 'sleep 300' // this is where the actual test would have gone
+            sh 'sleep 5' // this is where the actual test would have gone
 
             stage 'Promote'
             switch (branch) {
@@ -34,7 +34,7 @@ def call() {
 def mergeTo(target) {
     sh "git checkout ${target}"
     sh "git reset --hard origin/${target}" // move to the current tip
-    sh "git merge ${env.BRANCH_NAME}"
+    sh "git merge origin/${env.BRANCH_NAME}"
     sh "git commit -m 'promotion by Jenkins'"
     sh "git push ${target}"
 }
