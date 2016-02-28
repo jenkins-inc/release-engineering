@@ -35,4 +35,6 @@ def mergeTo(target) {
     sh "git checkout ${target}"
     sh "git reset --hard origin/${target}" // move to the current tip
     sh "git merge ${env.BRANCH_NAME}"
+    sh "git commit -m 'promotion by Jenkins'"
+    sh "git push ${target}"
 }
