@@ -10,7 +10,7 @@ def call() {
         stage 'Build'
         sh "${tool 'Maven 3.x'}/bin/mvn install"
         
-        def repoName = scm.userRemoteConfigs[0].url.split('(/jenkins-demo/|.git$)')[1]   // extract repository name
+        def repoName = scm.userRemoteConfigs[0].url.split('(/jenkins-inc/|.git$)')[1]   // extract repository name
         def branch = env.BRANCH_NAME
         
         if (branch in ['dev','staging','prod']) {
